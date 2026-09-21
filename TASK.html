@@ -1,0 +1,268 @@
+<title>Прогноз на грязной истории</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+  :root {
+    --ground: #f4f6f8;
+    --surface: #ffffff;
+    --surface-sunk: #eceff3;
+    --ink: #141a20;
+    --ink-soft: #4a5762;
+    --ink-faint: #7b8894;
+    --rule: #d5dce3;
+    --rule-soft: #e5eaef;
+    --accent: #1b3a5c;
+    --accent-soft: #e3ebf3;
+    --open: #8a5a12;
+    --open-soft: #f7eeda;
+
+    --font-ui: "Archivo", "Segoe UI", system-ui, sans-serif;
+    --font-read: "Source Serif 4", Georgia, serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+    --measure: 68ch;
+    --page: 940px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0e1317; --surface: #161d23; --surface-sunk: #1d262e;
+      --ink: #e6ebef; --ink-soft: #a7b4bf; --ink-faint: #7c8994;
+      --rule: #2b363f; --rule-soft: #222c34;
+      --accent: #8ab6dd; --accent-soft: #1c2b39;
+      --open: #d9a961; --open-soft: #32281a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1317; --surface: #161d23; --surface-sunk: #1d262e;
+    --ink: #e6ebef; --ink-soft: #a7b4bf; --ink-faint: #7c8994;
+    --rule: #2b363f; --rule-soft: #222c34;
+    --accent: #8ab6dd; --accent-soft: #1c2b39;
+    --open: #d9a961; --open-soft: #32281a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--page); margin: 0 auto; padding: 0 24px 96px; }
+
+  header.hero { padding: 56px 0 34px; border-bottom: 2px solid var(--ink); }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  h1 {
+    font-size: clamp(30px, 4.4vw, 44px); line-height: 1.08; font-weight: 700;
+    letter-spacing: -0.02em; margin: 14px 0 0; text-wrap: balance;
+  }
+  .standfirst {
+    font-family: var(--font-read); font-size: 18px; line-height: 1.6;
+    color: var(--ink-soft); max-width: var(--measure); margin: 16px 0 0;
+  }
+  .facts {
+    margin-top: 28px; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+  }
+  .fact { background: var(--surface); padding: 13px 16px; }
+  .fact dt {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .fact dd {
+    margin: 6px 0 0; font-size: 19px; font-weight: 600;
+    letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+  }
+
+  section { padding-top: 48px; }
+  h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.015em; margin: 10px 0 0; text-wrap: balance; }
+  h3 { font-size: 16px; font-weight: 600; margin: 30px 0 8px; }
+  p, li { font-family: var(--font-read); }
+  section > p, .lede { max-width: var(--measure); color: var(--ink-soft); font-size: 16px; }
+  .lede { margin: 12px 0 0; }
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--surface-sunk); padding: 1px 5px; border-radius: 2px; }
+
+  ul.tight, ol.tight { max-width: var(--measure); padding-left: 20px; margin: 12px 0 0; }
+  ul.tight li, ol.tight li { margin-bottom: 8px; color: var(--ink-soft); font-size: 15.5px; }
+  ol.tight li::marker { font-family: var(--font-ui); font-weight: 600; color: var(--ink); }
+
+  .scroll { overflow-x: auto; margin-top: 18px; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--rule-soft); }
+  thead th {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.11em;
+    text-transform: uppercase; color: var(--ink-faint); background: var(--surface-sunk);
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td { font-family: var(--font-read); font-size: 14.5px; color: var(--ink-soft); }
+  td.key { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); white-space: nowrap; font-weight: 500; }
+
+  .fixed {
+    margin-top: 20px; border: 1px solid var(--accent); background: var(--accent-soft);
+    padding: 18px 20px;
+  }
+  .fixed .label, .open .label {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.13em;
+    text-transform: uppercase; display: block; margin-bottom: 8px;
+  }
+  .fixed .label { color: var(--accent); }
+  .fixed ul { margin: 0; padding-left: 20px; max-width: var(--measure); }
+  .fixed li { color: var(--ink); font-size: 15.5px; margin-bottom: 6px; }
+  .fixed li:last-child { margin-bottom: 0; }
+
+  .open {
+    margin-top: 18px; border: 1px dashed var(--open); background: var(--open-soft);
+    padding: 18px 20px;
+  }
+  .open .label { color: var(--open); }
+  .open ul { margin: 0; padding-left: 20px; max-width: var(--measure); }
+  .open li { color: var(--ink); font-size: 15.5px; margin-bottom: 6px; }
+  .open li:last-child { margin-bottom: 0; }
+
+  .callout {
+    margin-top: 22px; border-left: 3px solid var(--accent); background: var(--surface);
+    padding: 14px 18px; max-width: var(--measure);
+  }
+  .callout p { margin: 0; font-size: 15px; color: var(--ink-soft); }
+  .callout strong { color: var(--ink); }
+
+  footer {
+    margin-top: 60px; padding-top: 18px; border-top: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-faint); font-family: var(--font-mono);
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Тестовое задание · модуль DP (Demand Planning)</div>
+    <h1>Прогноз на грязной истории</h1>
+    <p class="standfirst">История продаж за три года такая, какой она приходит из учётной системы. Построить прогноз на три месяца — полдела; главное — обосновать выбор метода и метрики.</p>
+
+    <dl class="facts">
+      <div class="fact"><dt>Бюджет времени</dt><dd>3–4 часа</dd></div>
+      <div class="fact"><dt>История</dt><dd>36 мес.</dd></div>
+      <div class="fact"><dt>Горизонт</dt><dd>3 мес.</dd></div>
+      <div class="fact"><dt>Отчёт</dt><dd>2 стр.</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2>Прежде чем начать</h2>
+    <p class="lede"><strong>Не укладываетесь в 3–4 часа — не доделывайте.</strong> Опишите в отчёте, что осталось и почему. Незаконченная, но осмысленная работа ценится выше «полной», которую вы не можете объяснить.</p>
+
+    <h3>Про ИИ-ассистентов</h3>
+    <p>Использовать ИИ-ассистентов можно и нужно — мы сами пользуемся ими каждый день. Но защита задания устная: 30–40 минут вопросов вида «почему так, а не иначе» и «что сломается, если…», плюс живая правка кода под изменённое требование.</p>
+    <div class="callout">
+      <p><strong>Код и текст, которые вы не можете объяснить и изменить на месте, считаются отсутствующими.</strong> Поэтому важен не объём, а то, чтобы каждое решение было вашим осознанным выбором.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Контекст</div>
+    <h2>Что делает модуль</h2>
+    <p class="lede">DP считает прогноз спроса для розничной сети: конвейер плагинов читает историю продаж, чистит её, сегментирует ряды и применяет к каждому сегменту подходящий метод прогнозирования.</p>
+    <p class="lede">Прогноз уходит дальше в планирование поставок, поэтому <strong>систематическое смещение прогноза дороже случайной ошибки</strong>: занижение оборачивается дефицитом, завышение — замороженными складскими остатками.</p>
+    <p class="lede">Ваша задача — на маленьком срезе данных построить прогноз на 3 месяца вперёд и, главное, обосновать выбор метода и метрики.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Вход</div>
+    <h2>Данные</h2>
+    <p class="lede">Каталог <code>data/</code>, история по месяцам за 2023-01 … 2025-12.</p>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Файл</th><th>Содержимое</th></tr></thead>
+        <tbody>
+          <tr><td class="key">sales_history.csv</td><td><code>sku, location, period, qty</code> — продажи</td></tr>
+          <tr><td class="key">stock_history.csv</td><td><code>sku, location, period, stock_end_qty, days_out_of_stock</code> — остатки и дни без товара</td></tr>
+          <tr><td class="key">promo_calendar.csv</td><td><code>sku, period, promo_type, discount_pct</code> — прошедшие промо-акции</td></tr>
+          <tr><td class="key">item_master.csv</td><td><code>sku, category, abc_class, launch_period, predecessor_sku, uom</code> — справочник позиций</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p>Данные синтетические, но воспроизводят дефекты, с которыми модуль сталкивается в проде. <strong>Часть файлов дана «просто так» — решать, нужны ли они и зачем, вам.</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Требуется · 1</div>
+    <h2>Прогноз</h2>
+    <p class="lede">Горизонт — 3 месяца (2026-01 … 2026-03), гранулярность — та, которую вы обоснуете. Результат — CSV: ключ ряда, период, прогноз.</p>
+
+    <div class="fixed">
+      <span class="label">Обязательно</span>
+      <ul>
+        <li><strong>Baseline</strong> — например, seasonal naive — как точка отсчёта. Любой более сложный метод должен доказать, что он лучше baseline, а не просто быть сложнее.</li>
+        <li><strong>Правило выбора метода.</strong> Ряды разные, один метод на всех не подойдёт. Правило должно быть воспроизводимым, а не подобранным вручную по каждому SKU.</li>
+        <li><strong>Обоснование библиотек.</strong> «Взял Prophet, потому что он хороший» — не обоснование.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Требуется · 2</div>
+    <h2>Метрика качества</h2>
+    <p class="lede">Выберите и обоснуйте метрику — или набор метрик — по которой вы сравниваете методы, и схему валидации.</p>
+
+    <div class="open">
+      <span class="label">Ответьте отдельно</span>
+      <ul>
+        <li>Почему в этой задаче нельзя ограничиться MAPE?</li>
+        <li>Что вы используете вместо неё и на каких рядах?</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <p>Мы намеренно <strong>не</strong> ставим целевое значение метрики: гнать цифру не нужно. Нужно уметь объяснить, что она означает и где она врёт.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Требуется · 3</div>
+    <h2>Код</h2>
+    <ul class="tight">
+      <li>Python 3.10+, <code>pandas</code> и <code>numpy</code>; запускается одной командой на чистом окружении.</li>
+      <li>Подготовка данных, выбор метода и расчёт прогноза разделены — так, чтобы завтра можно было добавить метод, не переписывая пайплайн.</li>
+      <li>Достаточно минимума тестов, но <strong>обязательно</strong> покройте тестами логику очистки данных: именно она чаще всего ломается молча.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow">Требуется · 4</div>
+    <h2>Отчёт <code>REPORT.md</code></h2>
+    <p class="lede">Две страницы, не больше.</p>
+    <ol class="tight">
+      <li><strong>Что не так с данными</strong> — список найденных дефектов: что нашли, как обнаружили, что с этим сделали и почему именно так. <em>Это главный раздел.</em></li>
+      <li><strong>Журнал решений</strong> — 3–5 ключевых развилок: что выбрали, какую альтернативу отвергли и почему. <em>Без этого раздела работа не рассматривается.</em></li>
+      <li><strong>Сегменты и методы</strong> — таблица «сегмент → сколько рядов → метод → метрика против baseline».</li>
+      <li><strong>Три вопроса аналитику</strong> — те, ответы на которые реально изменили бы вашу реализацию. Не «уточните формат даты».</li>
+      <li><strong>Где ваш прогноз плохой и почему.</strong> Назовите конкретные ряды.</li>
+      <li><strong>Масштаб и эксплуатация</strong> — что изменится при 500 тыс. рядов и ежедневном пересчёте; как понять в проде, что прогноз «поехал», до того как об этом скажет бизнес.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="eyebrow">Сдача</div>
+    <h2>Формат</h2>
+    <p class="lede">Git-репозиторий или архив: код, тесты, <code>REPORT.md</code>, выходной CSV, <code>README</code> с одной командой запуска.</p>
+  </section>
+
+  <footer>In.Plan · Demand Planning · тестовое задание</footer>
+</div>

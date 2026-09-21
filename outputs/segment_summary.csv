@@ -1,0 +1,13 @@
+segment,method,n_series,mase,rmsse,wape,bias,selected
+intermittent,croston_sba,6,1.138,0.74,1.372,-0.121,True
+intermittent,mean_12,6,1.202,0.772,1.453,0.131,False
+intermittent,seasonal_naive,6,1.263,1.007,1.705,0.339,False
+intermittent,tsb,6,1.158,0.745,1.436,0.165,False
+regular,moving_average_6,8,1.542,1.342,0.247,-0.026,False
+regular,seasonal_naive,8,1.188,1.107,0.195,-0.046,True
+regular,seasonal_ses,8,1.164,1.094,0.203,0.018,False
+regular,ses,8,1.416,1.224,0.22,-0.01,False
+seasonal,seasonal_naive,27,1.067,1.013,0.135,-0.1,False
+seasonal,seasonal_naive_growth,27,0.99,0.937,0.128,-0.046,True
+seasonal,seasonal_ses,27,1.004,0.941,0.139,-0.07,False
+seasonal,ses,27,1.658,1.492,0.17,-0.092,False
