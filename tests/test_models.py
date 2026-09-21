@@ -7,16 +7,19 @@ from demand_forecasting.pipeline import backtest_series
 
 
 def test_seasonal_naive_repeats_last_year():
+    """Seasonal naive возвращает значения тех же месяцев год назад."""
     y = np.arange(24, dtype=float)
     assert list(forecast("seasonal_naive", y, 3)) == [12, 13, 14]
 
 
 def test_seasonal_ses_recovers_pure_seasonality():
+    """На чисто сезонном ряду seasonal_ses восстанавливает профиль."""
     season = np.array([1, 2, 3, 4, 5, 6, 6, 5, 4, 3, 2, 1], float) * 10
     assert forecast("seasonal_ses", np.tile(season, 3), 3) == pytest.approx(season[:3], rel=0.02)
 
 
 def test_all_methods_return_h_nonnegative_finite():
+    """Любой метод из REGISTRY возвращает h конечных неотрицательных значений."""
     y = np.abs(np.random.default_rng(0).normal(50, 20, 36))
     for name in REGISTRY:
         out = forecast(name, y, 3)
@@ -24,16 +27,19 @@ def test_all_methods_return_h_nonnegative_finite():
 
 
 def test_croston_constant_demand_every_second_month():
+    """Croston SBA на спросе через месяц даёт z / p с поправкой (1 - alpha / 2)."""
     y = np.tile([0.0, 10.0], 18)
     assert forecast("croston_sba", y, 1)[0] == pytest.approx(0.95 * 10 / 2)
 
 
 def test_bias_sign_and_wape():
+    """Завышение даёт положительный bias; WAPE считается при нуле в факте."""
     assert M.bias([100, 100], [110, 110]) == pytest.approx(0.10)
     assert M.wape([100, 0], [90, 10]) == pytest.approx(0.20)
 
 
 def test_classify():
+    """Каждый тип ряда попадает в свой сегмент."""
     rng = np.random.default_rng(1)
     assert classify(np.ones(10)) == "short"
     assert classify(np.tile([0, 0, 0, 5.0], 9)) == "intermittent"
@@ -42,6 +48,7 @@ def test_classify():
 
 
 def test_backtest_has_no_lookahead_and_skips_imputed():
+    """Backtest использует только прошлое и не оценивает заполненные точки."""
     y = np.arange(30, dtype=float)
     observed = np.ones(30, bool)
     observed[27] = False
